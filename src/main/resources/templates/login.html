@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="entete::entete('Se connecter')">
+</head>
+<body style="background-color: white;">
+
+	<div class="container">
+		<header class="page-header">
+			<h3>Se connecter</h3>
+		</header>
+		<section class="row">
+			<aside class="col-md-6">
+				<a class="thumbnail">
+					<img alt="Image Acceuil" style="width: 221px;height: 221px;" class="img-rounded" th:src="@{/images/pot.png}">
+				</a>
+			</aside>
+			<article class="col-md-6">
+				<p th:if="${loginError}" class="erreur">Le login ou le mot de passe est incorrect !</p>
+				<form method="post" th:action="@{/login}" class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-md-4">Votre Login</label>
+						<div class="col-md-8">
+							<input required="required" type="text" name="username" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-md-4">Votre Mot de passe</label>
+						<div class="col-md-8">
+							<input required="required" type="password" name="password" class="form-control">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Se Connecter</button>
+				</form>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>

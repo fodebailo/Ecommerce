@@ -1,0 +1,23 @@
+<div th:fragment="supprimerProduit" th:if="${action}=='supprimerProduit'">
+	<h2 class="label label-info">Edition de produit</h2>
+	<table class="table table-bordered table-striped table-condensed">
+		<tr>
+			<th>Désignation</th>
+			<th>Prix</th>
+			<th>Quantité</th>
+		</tr>
+		<tr th:each="p:${produits}">
+			<td th:text="${p.designation}"></td>
+			<td th:text="${p.prix}"></td>
+			<td th:text="${p.quantite}"></td>
+			<td>
+				<a class="curseur delete-prod" th:name="${context}" th:id="${p.id}">
+				Supprimer
+				</a>
+			</td>
+			<td>
+				<a th:href="@{${context}+'/'+modifierProduit(idCat=${idCategorie},idProd=${p.id})}">Modifier</a>
+			</td>
+		</tr>
+	</table>
+</div>

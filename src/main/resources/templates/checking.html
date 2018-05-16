@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="entete::entete('Checking')">
+</head>
+
+<body style="background-color: white;">
+	
+	<div class="container">
+		<header th:insert="menu::menu">
+		</header>
+		<section class="row">
+			<div class="page-header">
+				<p class="label label-info">Votre recherche</p>
+				<div class="btn-group">
+					<button type="button" data-toggle="modal" data-target="#commandeDate" class="btn btn-primary">Par Date</button>
+					<button type="button" data-toggle="modal" data-target="#commandeNom" class="btn btn-success">Par Client</button>
+					<button type="button" data-toggle="modal" data-target="#commandeEntreDate" class="btn btn-danger">Entre Date</button>
+				</div>
+				<div class="modal fade" id="commandeDate">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">X</button>
+								<h3 class="label label-info">Recherche par date</h3>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" method="post" th:action="@{${context}+'/commandeParDate'}">
+									<div class="form-group">
+										<label class="control-label col-md-4">Date :</label>
+										<div class="col-md-8">
+											<input type="date" required="required" name="date" class="form-control">
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary">OK</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="commandeNom">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">X</button>
+								<h3 class="label label-info">Recherche par nom client</h3>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" method="post" th:action="@{${context}+'/commandeParNom'}">
+									<div class="form-group">
+										<label class="control-label col-md-4">Nom :</label>
+										<div class="col-md-8">
+											<input type="text" required="required" name="nom" class="form-control">
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary">OK</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="commandeEntreDate">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">X</button>
+								<h3 class="label label-info">Recherche entre date</h3>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" method="post" th:action="@{${context}+'/commandeEntreDate'}">
+									<div class="form-group">
+										<label class="control-label col-md-4">Date de début :</label>
+										<div class="col-md-8">
+											<input type="date" required="required" name="dateDebut" class="form-control">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4">Date de fin :</label>
+										<div class="col-md-8">
+											<input type="date" required="required" name="dateFin" class="form-control">
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary">OK</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<aside class="col-md-10 col-md-offset-1">
+				<h3 class="label label-info">Commande</h3>
+				<ol th:each="c:${commandes}">
+					<li th:text="${#strings.toUpperCase(#dates.format(c.dateCommande,'dd-MMM-yyyy'))}"></li>
+					<table class="table table-bordered table-striped table-condensed">
+					<tr>
+						<th>Client</th>
+						<th>Produits commandés</th>
+					</tr>
+					<tr>
+						<td>
+							<table class="table table-bordered table-striped table-condensed">
+								<tr>
+									<th>Nom</th>
+									<th>Adresse</th>
+									<th>Téléphone</th>
+								</tr>
+								<tr>
+									<td th:text="${#strings.toUpperCase(c.client.nom)}"></td>
+									<td th:text="${c.client.adresse}"></td>
+									<td th:text="${c.client.telephone}"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table table-bordered table-striped table-condensed">
+								<tr>
+									<th>Désignation</th>
+									<th>Prix</th>
+									<th>Quantité</th>
+								</tr>
+								<tr th:each="lc:${c.ligneCommandes}">
+									<td class="thumbnail">
+										<img class="img-rounded" th:src="@{${context}+'/imageProduit/'+${lc.produit.id}}">
+										<span class="pull-left" th:text="${lc.produit.designation}"></span>
+									</td>
+									<td th:text="${lc.produit.prix}"></td>
+									<td th:text="${lc.quantite}"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				</ol>
+			</aside>
+			<aside class="col-md-6"></aside>
+		</section>
+	</div>
+	
+	<script th:src="@{/script/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/script/bootstrap.min.js}"></script>
+	<script th:src="@{/script/script.js}"></script>	
+	
+</body>
+
+</html>

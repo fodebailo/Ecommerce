@@ -1,0 +1,21 @@
+<div th:fragment="center" class="cadre panel panel-default" th:each="p:${produits}">
+	<div class="panel-body">
+		<img th:src="@{${context}+'/imageProduit/'+${p.id}}">
+		<ul class="list-group">
+			<li class="list-group-item">Désignation :
+				<span style="font-weight: bold;" th:text="${#strings.toUpperCase(p.designation)}"></span>
+			</li>
+			<li class="list-group-item">Prix :
+				<span class="pull-right badge" th:text="${p.prix}"></span>
+			</li>
+			<li class="list-group-item">Quantite restante :
+				<span class="pull-right badge" th:text="${p.quantite}"></span>
+			</li>
+		</ul>
+		<a class="panier curseur" th:name="${context}" th:id="${p.id}" th:hidden="(${p.quantite} <= 2) ? true : false">Acheter</a>
+		<div class="info alert alert-info" style="display: none;">
+			<button class="close" data-dismiss="alert">X</button>
+			<p>Produit ajouté</p>
+		</div>
+	</div>
+</div>

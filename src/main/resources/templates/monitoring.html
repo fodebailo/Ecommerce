@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="entete::entete('Monitoring')">
+</head>
+
+<body style="background-color: white;">
+	
+	<div class="container">
+		<header th:insert="menu::menu"></header>
+		<section class="row">
+			<article class="col-md-6">
+				<p class="label label-info">Categorie</p>
+				<table class="table table-bordered table-condensed table-striped">
+					<caption>
+						<button th:if="${context}=='/admin'" data-toggle="modal" data-target="#addCategorie" type="button" 
+						class="btn btn-primary btn-xs">+</button>
+					</caption>
+					<tr>
+						<th>ID</th>
+						<th>LIBELLE</th>
+					</tr>
+					<tr th:each="c:${categories}">
+						<td th:text="${c.id}"></td>
+						<td th:text="${c.libelle}"></td>
+						<td>
+							<a th:href="@{${context}+'/ajouterProduit/'+${c.id}}">Ajouter un produit</a>
+						</td>
+						<td>
+							<a th:href="@{${context}+'/produitEditionParCat/'+${c.id}}">Edition de produit</a>
+						</td>
+						<td th:if="${context}=='/admin'">
+							<a th:href="@{${context}+'/modifierCategorie/'+${c.id}}">Modifier catégorie</a>
+						</td>
+						<td th:if="${context}=='/admin'">
+							<a class="curseur delete-cat" th:name="${context}" th:id="${c.id}">Supprimer catégorie</a>
+						</td>
+					</tr>
+				</table>
+				<div class="modal fade" id="addCategorie">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal">X</button>
+								<h3>Ajouter un categorie</h3>
+							</div>
+							<div class="modal-body">
+								<form method="post" th:object="${categorie}" th:action="@{${context}+'/addCategorie'}" class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-md-4">Libélle :</label>
+										<div class="col-md-8">
+											<input required="required" class="form-control" type="text" th:field="*{libelle}">
+											<span th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}" th:errorclass="erreur">
+												Le libélle est incorrect
+											</span>
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary">Valider</button>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button class="close" data-dismiss="modal">Fermer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</article>
+			<article class="col-md-6">
+				<div th:replace="ajoutProduit::ajoutProduit"></div>
+				<div th:replace="modifierProduit::modifierProduit"></div>
+				<div th:replace="supprimerProduit::supprimerProduit"></div>
+				<div th:replace="modifierCategorie::modifierCategorie"></div>
+			</article>
+		</section>
+	</div>
+	
+	<script th:src="@{/script/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/script/bootstrap.min.js}"></script>
+	<script th:src="@{/script/script.js}"></script>
+	
+	
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<nav th:fragment="menu" class="navbar navbar-inverse">
+	<div class="navbar-header">
+		<a class="navbar-brand">Votre marché numérique</a>
+		<button type="button" data-toggle="collapse" class="navbar-toggle" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li class="dropdown" th:if="${#strings.isEmpty(context)}">
+				<a class="curseur" data-toggle="dropdown">
+					Connecter
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/index}" th:if="${#strings.isEmpty(context)}">Administrateur</a>
+					</li>
+					<li>
+						<a th:href="@{/user/index}" th:if="${#strings.isEmpty(context)}">Utilisateur</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a th:href="@{/logout}" th:if="${! #strings.isEmpty(context)}">Se déconnecter</a>
+			</li>
+			<li>
+				<a th:href="@{${context}+'/index'}">Acceuil</a>
+			</li>
+			<li class="dropdown">
+				<a class="curseur" data-toggle="dropdown">
+					Voir
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{${context}+'/produitDisponible'}">Produit Disponible</a>
+					</li>
+					<li>
+						<a th:href="@{${context}+'/listePanier/'}">Votre Panier</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" th:if="${! #strings.isEmpty(context)}">
+				<a class="curseur" data-toggle="dropdown">
+					Operation
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{${context}+'/monitoring'}">Monitoring</a>
+					</li>
+					<li th:if="${context} == '/admin'">
+						<a th:href="@{${context}+'/checking'}">Checking</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<form method="post" th:action="@{${context}+'/produitParMC'}" class="navbar-form form-inline navbar-right">
+			<div class="form-group">
+				<label class="sr-only">Votre recherche</label>
+				<div>
+					<input required="required" class="form-control input-sm" type="text" name="motcle" placeholder="Rechercher" />
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+		</form>
+	</div>
+</nav>

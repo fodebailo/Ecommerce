@@ -1,0 +1,21 @@
+<div id="carousel" class="carousel slide" data-ride="carousel" th:fragment="carousel">
+	<ol class="carousel-indicators">
+	    <li data-target="#carousel" data-slide-to="0" class="active"></li>
+	    <li data-target="#carousel" data-slide-to="1"></li>
+	    <li data-target="#carousel" data-slide-to="2"></li>
+  	</ol>
+	<div class="carousel-inner">
+		<div class="item active">
+			<img class="img-circle" th:src="@{/images/photo-tigre.jpg}">
+			<h2 class="carousel-caption">Tigre de Sibérie</h2>
+		</div>
+		<div class="item">
+			<img class="img-rounded" th:src="@{/images/photo-tigre1.jpg}">
+			<h2 class="carousel-caption">Tigre de la Caspienne</h2>
+		</div>
+		<div class="item">
+			<img class="img-thumbnail" th:src="@{/images/photo-tigre2.jpg}">
+			<h2 class="carousel-caption">Tigre du Sumatra</h2>
+		</div>
+	</div>
+</div>

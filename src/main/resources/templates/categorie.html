@@ -1,0 +1,12 @@
+<div th:fragment="option" class="panel panel-primary">
+	<div class="panel-heading">
+		<h2 class="panel-title">Catégorie</h2>
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item" th:each="c:${categories}">
+				<a th:href="@{${context}+'/produitParCat/'+${c.id}}" th:text="${#strings.toUpperCase(c.libelle)}"></a>
+			</li>
+		</ul>
+	</div>
+</div>

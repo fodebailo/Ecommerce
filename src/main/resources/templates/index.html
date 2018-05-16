@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="entete::entete('Votre marché numérique')">
+</head>
+
+<body>
+	
+	<div class="container">
+		<header th:insert="menu::menu"></header>
+		<section class="row">
+			<aside class="col-md-3">
+				<aside th:replace="categorie::option"></aside>
+				<aside th:replace="panier::panier"></aside>
+			</aside>
+			<article class="col-md-6">
+				<div th:replace="center::center"></div>
+			</article>
+			<aside class="col-md-3 hidden-xs hidden-sm">
+				<div th:replace="carousel::carousel"></div>
+			</aside>
+		</section>
+	</div>
+	
+	<script th:src="@{/script/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/script/bootstrap.min.js}"></script>
+	<script th:src="@{/script/script.js}"></script>
+	
+</body>
+
+</html>

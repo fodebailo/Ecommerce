@@ -1,0 +1,18 @@
+body{
+	background-color: gray;
+}
+
+.curseur{
+	cursor: pointer;
+}
+
+.erreur{
+	color: red;
+}
+
+.cadre{
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px;
+	width: 231px;
+}
